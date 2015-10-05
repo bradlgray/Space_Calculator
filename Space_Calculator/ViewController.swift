@@ -7,19 +7,74 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController {
 
+
+class ViewController: UIViewController  {
+ 
+    
+    enum Operation: String {
+        case Divide = "/"
+        case Multiply = "*"
+        case Add = "+"
+        case Subtract = "-"
+        case Empty = "Empty"
+    }
+    
+    
+    var audio: AVAudioPlayer!
+    
+    var runningNumber = ""
+    var leftNum = ""
+    var rightNum = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+       
+   let path = NSBundle.mainBundle().pathForResource("btn", ofType: "wav")
+        
+        let soundUrl = NSURL(fileURLWithPath: path!)
+        
+       do {
+            
+       try audio = AVAudioPlayer(contentsOfURL: soundUrl)
+    
+        
+       } catch let err as NSError {
+        print(err.debugDescription)
+        }
+    
+    
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func numberPressed(btn: UIButton!) {
+        audio.play()
     }
 
-
+    
+    @IBAction func onDividePress(sender: UIButton) {
+        
+    }
+    
+    @IBAction func onMultiplyPress(sender: UIButton) {
+        
+    }
+    
+    @IBAction func onSubtractPress(sender: UIButton) {
+        
+    }
+    
+    @IBAction func onAddPress(sender: UIButton) {
+        
+    }
+ 
+    
+    
+    
+    
+    
+    
 }
 
