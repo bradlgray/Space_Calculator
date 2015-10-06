@@ -14,6 +14,7 @@ import AVFoundation
 class ViewController: UIViewController  {
  
     
+    
     enum Operation: String {
         case Divide = "/"
         case Multiply = "*"
@@ -28,7 +29,7 @@ class ViewController: UIViewController  {
     var runningNumber = ""
     var leftNum = ""
     var rightNum = ""
-    
+    var currentOperation: Operation = Operation.Empty
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,29 +50,44 @@ class ViewController: UIViewController  {
     
     }
 
+    @IBOutlet weak var outputLbl: UILabel!
+    
     @IBAction func numberPressed(btn: UIButton!) {
-        audio.play()
+        
+       
+        playSound()
+        
+        runningNumber += "\(btn.tag)"
+        
+        outputLbl.text = runningNumber
     }
 
     
     @IBAction func onDividePress(sender: UIButton) {
-        
+        proccessOperation(Operation.Divide)
     }
     
     @IBAction func onMultiplyPress(sender: UIButton) {
-        
+        proccessOperation(Operation.Multiply)
     }
     
     @IBAction func onSubtractPress(sender: UIButton) {
-        
+        proccessOperation(Operation.Subtract)
     }
     
     @IBAction func onAddPress(sender: UIButton) {
-        
+       proccessOperation(Operation.Add)
     }
  
-    
-    
+    func proccessOperation(op: Operation) {
+        playSound()
+    }
+    func playSound() {
+        if audio.playing {
+            audio.stop()
+        }
+        audio.play()
+    }
     
     
     
