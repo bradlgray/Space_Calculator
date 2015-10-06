@@ -60,6 +60,7 @@ class ViewController: UIViewController  {
         runningNumber += "\(btn.tag)"
         
         outputLbl.text = runningNumber
+        //testing
     }
 
     
