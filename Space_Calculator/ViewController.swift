@@ -25,7 +25,7 @@ class ViewController: UIViewController  {
     
     
     var audio: AVAudioPlayer!
-    
+    var result = ""
     var runningNumber = ""
     var leftNum = ""
     var rightNum = ""
@@ -60,7 +60,9 @@ class ViewController: UIViewController  {
         runningNumber += "\(btn.tag)"
         
         outputLbl.text = runningNumber
-        //testing
+        
+        
+        
     }
 
     
@@ -79,9 +81,45 @@ class ViewController: UIViewController  {
     @IBAction func onAddPress(sender: UIButton) {
        proccessOperation(Operation.Add)
     }
+    
+    @IBAction func onEqualPress(sender: UIButton) {
+      proccessOperation(currentOperation)
+    }
  
     func proccessOperation(op: Operation) {
         playSound()
+        if currentOperation != Operation.Empty {
+            if runningNumber != "" {
+                rightNum = runningNumber
+                
+                runningNumber = ""
+                
+                if currentOperation == Operation.Multiply {
+                    result = "\(Double(leftNum)! * Double(rightNum)!)"
+                    
+                } else if  currentOperation == Operation.Divide {
+                    result = "\(Double(leftNum)! / Double(rightNum)!)"
+                    
+                } else if currentOperation == Operation.Add {
+                    result = "\(Double(leftNum)! + Double(rightNum)!)"
+                    
+                } else if currentOperation == Operation.Subtract {
+                    result = "\(Double(leftNum)! - Double(rightNum)!)"
+                }
+                
+                leftNum = result
+                outputLbl.text = leftNum
+
+                
+            }
+           
+            currentOperation = op
+            
+        } else {
+            leftNum = runningNumber
+            runningNumber = ""
+            currentOperation = op
+        }
     }
     func playSound() {
         if audio.playing {
